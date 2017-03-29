@@ -9,8 +9,7 @@ EXPOSE 80
 
 VOLUME ["/etc/varnish"]
 
-RUN apk add --update varnish \
- && rm -rf /var/cache/apk/* \
+RUN apk --no-cache add varnish \
  && mkdir -p /var/lib/varnish/`hostname` \
  && chown nobody /var/lib/varnish/`hostname`
 
