@@ -7,6 +7,8 @@ ENV VARNISH_CONNECT_TIMEOUT=4
 
 EXPOSE 80
 
+VOLUME ["/etc/varnish"]
+
 RUN apk add --update varnish \
  && rm -rf /var/cache/apk/* \
  && mkdir -p /var/lib/varnish/`hostname` \
