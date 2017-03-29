@@ -13,4 +13,4 @@ RUN apk --no-cache add varnish \
  && mkdir -p /var/lib/varnish/`hostname` \
  && chown nobody /var/lib/varnish/`hostname`
 
-CMD ["varnishd", "-s malloc,${VARNISH_MEMORY}", "-a :80", "-b ${VARNISH_BACKEND_ADDRESS}:${VARNISH_BACKEND_PORT}", "-p connect_timeout=${VARNISH_CONNECT_TIMEOUT}"]
+CMD -F varnishd -s malloc,${VARNISH_MEMORY} -a :80 -b ${VARNISH_BACKEND_ADDRESS}:${VARNISH_BACKEND_PORT} -p connect_timeout=${VARNISH_CONNECT_TIMEOUT}
