@@ -1,0 +1,3 @@
+[submodule "varnish-5.0-configuration-templates"]
+	path = varnish-5.0-configuration-templates
+	url = https://github.com/mattiasgeniar/varnish-5.0-configuration-templates
