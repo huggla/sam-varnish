@@ -23,6 +23,8 @@ RUN apk --no-cache add varnish \
 
 VOLUME "$VARNISH_CONFIG_DIR"
 
+WORKDIR "$VARNISH_CONFIG_DIR"
+
 EXPOSE $LISTEN_PORT $MANAGEMENT_PORT
 
 CMD ["entry.sh"]
