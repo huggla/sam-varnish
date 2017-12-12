@@ -1,18 +1,30 @@
-FROM alpine:latest
+FROM alpine:3.7
 
-ENV VARNISH_BACKEND_ADDRESS=192.168.1.65
-ENV VARNISH_MEMORY=100M
-ENV VARNISH_BACKEND_PORT=80
-ENV VARNISH_CONNECT_TIMEOUT=4
-ENV VARNISH_MAX_RETRIES=4
-ENV VARNISH_MAX_RESTARTS=4
+ENV JAIL="none" \
+    PID_FILE="/run/varnishd.pid" \
+    VARNISH_CONFIG_DIR="/varnishconf" \
+    READ_ONLY_PARAMS="cc_command,vcc_allow_inline_c,vmod_path" \
+    LISTEN_ADDRESS="" \
+    LISTEN_PORT="6081" \
+    MANAGEMENT_ADDRESS="localhost" \
+    MANAGEMENT_PORT="6082" \
+    STORAGE="malloc,100M" \
+    DEFAULT_TTL="120" \
+    ADDITIONAL_OPTS="" 
 
-EXPOSE 80
-
-VOLUME ["/etc/varnish"]
+COPY ./bin/entry.sh /usr/local/bin/entry.sh
+COPY ./varnish-5.0-configuration-templates/default.vcl "$VARNISH_CONFIG_DIR/default.vcl"
 
 RUN apk --no-cache add varnish \
- && mkdir -p /var/lib/varnish/`hostname` \
- && chown nobody /var/lib/varnish/`hostname`
+ && mkdir -p "$(dirname '"$PID_FILE"')" \
+ && touch "$PID_FILE" \
+ && chown varnish:varnish "$PID_FILE" \
+ && chmod ugo+x /usr/local/bin/entry.sh
 
-CMD varnishd -F -s malloc,${VARNISH_MEMORY} -a :80 -b ${VARNISH_BACKEND_ADDRESS}:${VARNISH_BACKEND_PORT} -p max_retries=${VARNISH_MAX_RETRIES} -p max_restarts=${VARNISH_MAX_RESTARTS} -p connect_timeout=${VARNISH_CONNECT_TIMEOUT}
+USER varnish
+
+VOLUME "$VARNISH_CONFIG_DIR"
+
+EXPOSE $LISTEN_PORT $MANAGEMENT_PORT
+
+CMD ["entry.sh"]
