@@ -21,8 +21,6 @@ RUN apk --no-cache add varnish \
  && chown varnish:varnish "$PID_FILE" \
  && chmod ugo+x /usr/local/bin/entry.sh
 
-USER varnish
-
 VOLUME "$VARNISH_CONFIG_DIR"
 
 EXPOSE $LISTEN_PORT $MANAGEMENT_PORT
