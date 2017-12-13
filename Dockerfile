@@ -19,6 +19,7 @@ RUN apk --no-cache add varnish \
  && mkdir -p "$(dirname '"$PID_FILE"')" \
  && touch "$PID_FILE" \
  && chown varnish:varnish "$PID_FILE" \
+ && chown varnish:root /var/lib/varnish \
  && chmod ugo+x /usr/local/bin/entry.sh
 
 VOLUME "$VARNISH_CONFIG_DIR"
