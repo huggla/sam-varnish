@@ -22,10 +22,6 @@ RUN apk --no-cache add varnish \
  && chown varnish:root /var/lib/varnish \
  && chmod ugo+x /usr/local/bin/entry.sh
 
-VOLUME "$VARNISH_CONFIG_DIR"
-
 WORKDIR "$VARNISH_CONFIG_DIR"
-
-EXPOSE $LISTEN_PORT $MANAGEMENT_PORT
 
 CMD ["entry.sh"]
