@@ -8,7 +8,7 @@ then
    then
       echo "vcl 4.0;" >> "$VCL_FILE"
       echo >> "$VCL_FILE"
-      IFS=";"
+      IFS="#"
       for import in $IMPORTS
       do
          echo "import $import;" >> "$VCL_FILE"
