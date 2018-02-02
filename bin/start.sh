@@ -37,7 +37,7 @@ then
          echo "}" >> "$VCL_FILE"
          echo >> "$VCL_FILE"
       done
-      subs="VCL_INIT; VCL_RECV; VCL_PIPE; VCL_PASS; VCL_HASH; VCL_HIT; VCL_MISS; VCL_BACKEND_RESPONSE; VCL_DELIVER; VCL_PURGE; VCL_SYNTH; VCL_FINI"
+      subs="VCL_INIT# VCL_RECV# VCL_PIPE# VCL_PASS# VCL_HASH# VCL_HIT# VCL_MISS# VCL_BACKEND_RESPONSE# VCL_BACKEND_ERROR# VCL_DELIVER# VCL_PURGE# VCL_SYNTH# VCL_FINI"
       for sub in $subs
       do
          sub_lc=`tr "[:upper:]" "[:lower:]" $sub`
