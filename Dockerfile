@@ -13,7 +13,7 @@ RUN apk --no-cache add varnish \
  && chmod ugo+x /usr/local/bin/start.sh
 
 ENV JAIL="none" \
-    VCL_FILE="/etc/varnish/default.vcl" \
+    VCL_FILE="$CONFIG_DIR/default.vcl" \
     READ_ONLY_PARAMS="cc_command,vcc_allow_inline_c,vmod_path" \
     LISTEN_ADDRESS="" \
     LISTEN_PORT="6081" \
@@ -22,5 +22,7 @@ ENV JAIL="none" \
     STORAGE="malloc,100M" \
     DEFAULT_TTL="120" \
     ADDITIONAL_OPTS="" 
+
+USER varnish
 
 CMD ["start.sh"]
