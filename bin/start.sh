@@ -45,7 +45,7 @@ then
          eval "sub_rows=\$$sub"
          for row in $sub_rows
          do
-            echo "   $row;" >> "$VCL_FILE"
+            echo "   $row" >> "$VCL_FILE"
          done
          echo "}" >> "$VCL_FILE"
          echo >> "$VCL_FILE"
