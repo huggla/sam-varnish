@@ -1,14 +1,15 @@
 FROM alpine:3.7
 
-COPY ./bin/start.sh /usr/local/bin/start.sh
-COPY ./varnish-5.0-configuration-templates/default.vcl /tmp/default.vcl
+ENV PID_FILE="/var/run/varnishd.pid" \
+    CONFIG_DIR="/etc/varnish"
 
-ENV PID_FILE="/var/run/varnishd.pid"
+COPY ./bin/start.sh /usr/local/bin/start.sh
+COPY ./varnish-5.0-configuration-templates/default.vcl $CONFIG_DIR/default.vcl.template
 
 RUN apk --no-cache add varnish \
  && mkdir -p "$(dirname '"$PID_FILE"')" \
  && touch "$PID_FILE" \
- && chown varnish "$PID_FILE" /var/lib/varnish \
+ && chown varnish "$PID_FILE" /var/lib/varnish $CONFIG_DIR \
  && chmod ugo+x /usr/local/bin/start.sh
 
 ENV JAIL="none" \
