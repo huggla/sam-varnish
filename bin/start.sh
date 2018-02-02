@@ -51,7 +51,7 @@ then
          echo >> "$VCL_FILE"
       done
    else
-      cp /tmp/default.vcl "$VCL_FILE"
+      cp $CONFIG_DIR/default.vcl.template "$VCL_FILE"
    fi
 fi
 varnishd -j $JAIL -P "$PID_FILE" -f "$VCL_FILE" -r $READ_ONLY_PARAMS -a $LISTEN_ADDRESS:$LISTEN_PORT -T $MANAGEMENT_ADDRESS:$MANAGEMENT_PORT -s $STORAGE -t $DEFAULT_TTL -F $ADDITIONAL_OPTS
