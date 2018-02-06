@@ -6,11 +6,11 @@ ENV PID_FILE="/var/run/varnishd.pid" \
 COPY ./bin/start.sh /usr/local/bin/start.sh
 COPY ./varnish-5.0-configuration-templates/default.vcl $CONFIG_DIR/default.vcl.template
 
-RUN apk --no-cache add varnish sudo \
+RUN apk --no-cache add varnish \
  && mkdir -p "$(dirname '"$PID_FILE"')" \
  && touch "$PID_FILE" \
- && chmod 500 /usr/local/bin/start.sh \
- && echo "varnish ALL=(root) NOPASSWD:SETENV: /usr/local/bin/start.sh" > /etc/sudoers.d/varnish
+ && chown varnish "$PID_FILE" /var/lib/varnish $CONFIG_DIR \
+ && chmod +x /usr/local/bin/start.sh
 
 ENV JAIL="none" \
     VCL_FILE="$CONFIG_DIR/default.vcl" \
@@ -25,4 +25,4 @@ ENV JAIL="none" \
 
 USER varnish
 
-CMD ["sudo", "-E", "start.sh"]
+CMD ["start.sh"]
