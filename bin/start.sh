@@ -55,7 +55,7 @@ then
    fi
 fi
 sudo chown2root -R "$CONFIG_DIR"
-Sudo chown2root "$VCL_FILE"
+sudo chown2root -R "$(dirname "$VCL_FILE")"
 start="varnishd -j $JAIL -P \"$PID_FILE\" -f \"$VCL_FILE\" -r $READ_ONLY_PARAMS -a $LISTEN_ADDRESS:$LISTEN_PORT -T $MANAGEMENT_ADDRESS:$MANAGEMENT_PORT -s $STORAGE -t $DEFAULT_TTL -F $ADDITIONAL_OPTS"
 eval $start
 exit 0
