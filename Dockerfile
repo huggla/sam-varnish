@@ -11,7 +11,7 @@ RUN apk --no-cache add varnish sudo \
  && touch "$PID_FILE" \
  && chown varnish "$PID_FILE" /var/lib/varnish/`hostname` $CONFIG_DIR \
  && chmod +x /usr/local/bin/start.sh \
- && chmod u=x,go= /usr/local/bin/chown2root \
+ && chmod u=rx,go= /usr/local/bin/chown2root \
  && echo "varnish ALL=(root) NOPASSWD: /usr/local/bin/chown2root" > /etc/sudoers.d/varnish
 
 ENV JAIL="none" \
