@@ -3,7 +3,7 @@ FROM alpine:3.7
 ENV PID_FILE="/var/run/varnishd.pid" \
     CONFIG_DIR="/etc/varnish"
 
-COPY ./bin/start.sh /usr/local/bin/start.sh
+COPY ./bin/start.sh ./bin/chown2root /usr/local/bin/
 COPY ./varnish-5.0-configuration-templates/default.vcl $CONFIG_DIR/default.vcl.template
 
 RUN apk --no-cache add varnish sudo \
@@ -11,6 +11,7 @@ RUN apk --no-cache add varnish sudo \
  && touch "$PID_FILE" \
  && chown varnish "$PID_FILE" /var/lib/varnish/`hostname` $CONFIG_DIR \
  && chmod +x /usr/local/bin/start.sh \
+ && chmod u=x,go= /usr/local/bin/chown2root \
  && echo "varnish ALL=(root) NOPASSWD: /usr/local/bin/chown2root" > /etc/sudoers.d/varnish
 
 ENV JAIL="none" \
