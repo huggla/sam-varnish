@@ -7,9 +7,9 @@ COPY ./bin/start.sh /usr/local/bin/start.sh
 COPY ./varnish-5.0-configuration-templates/default.vcl $CONFIG_DIR/default.vcl.template
 
 RUN apk --no-cache add varnish \
- && mkdir -p "$(dirname '"$PID_FILE"')" \
+ && mkdir -p "$(dirname '"$PID_FILE"')" /var/lib/varnish/`hostname` \
  && touch "$PID_FILE" \
- && chown varnish "$PID_FILE" /var/lib/varnish $CONFIG_DIR \
+ && chown varnish "$PID_FILE" /var/lib/varnish/`hostname` $CONFIG_DIR \
  && chmod +x /usr/local/bin/start.sh
 
 ENV JAIL="none" \
