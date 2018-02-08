@@ -1,5 +1,5 @@
 # varnish-alpine
-A minimal docker image with Varnish. Listens by default on port 6081.
+A minimal, secure docker image with Varnish. Listens by default on port 6081.
 
 ## Environment variables
 ### pre-set variables (can be set at runtime)
@@ -24,4 +24,4 @@ A minimal docker image with Varnish. Listens by default on port 6081.
 
 ## Capabilities
 ### Can drop
-* ALL
+* All but CHOWN, SETGID and SETUID.
