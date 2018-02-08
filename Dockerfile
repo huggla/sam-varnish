@@ -9,7 +9,7 @@ COPY ./varnish-5.0-configuration-templates/default.vcl $CONFIG_DIR/default.vcl.t
 RUN apk --no-cache add varnish sudo \
  && mkdir -p "$(dirname '"$PID_FILE"')" /var/lib/varnish/`hostname` \
  && touch "$PID_FILE" \
- && chown varnish "$PID_FILE" /var/lib/varnish/`hostname` $CONFIG_DIR \
+ && chown varnish:varnish "$PID_FILE" /var/lib/varnish/`hostname` $CONFIG_DIR \
  && chmod +x /usr/local/bin/start.sh \
  && chmod u=rx,go= /usr/local/bin/chown2root \
  && echo "varnish ALL=(root) NOPASSWD: /usr/local/bin/chown2root" > /etc/sudoers.d/varnish
