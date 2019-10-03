@@ -1,30 +1,49 @@
-FROM alpine:3.7
+# =========================================================================
+# Init
+# =========================================================================
+# ARGs (can be passed to Build/Final) <BEGIN>
+ARG SaM_VERSION="1.0"
+ARG TAG="20190927"
+ARG IMAGETYPE="application"
+ARG RUNDEPS="varnish dropbear-ssh"
+ARG STARTUPEXACUTABLES="/usr/sbin/varnishd"
+ARG EXECUTABLES="/usr/bin/ssh /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa"
+# ARGs (can be passed to Build/Final) </END>
 
-ENV PID_FILE="/var/run/varnishd.pid" \
-    CONFIG_DIR="/etc/varnish"
+# Generic template (don't edit) <BEGIN>
+FROM ${CONTENTIMAGE1:-scratch} as content1
+FROM ${CONTENTIMAGE2:-scratch} as content2
+FROM ${CONTENTIMAGE3:-scratch} as content3
+FROM ${CONTENTIMAGE4:-scratch} as content4
+FROM ${CONTENTIMAGE5:-scratch} as content5
+FROM ${INITIMAGE:-${BASEIMAGE:-huggla/base:$SaM_VERSION-$TAG}} as init
+# Generic template (don't edit) </END>
 
-COPY ./bin/start.sh ./bin/chown2root /usr/local/bin/
-COPY ./varnish-5.0-configuration-templates/default.vcl $CONFIG_DIR/default.vcl.template
+# =========================================================================
+# Build
+# =========================================================================
+# Generic template (don't edit) <BEGIN>
+FROM ${BUILDIMAGE:-huggla/build:$SaM_VERSION-$TAG} as build
+FROM ${BASEIMAGE:-huggla/base:$SaM_VERSION-$TAG} as final
+COPY --from=build /finalfs /
+# Generic template (don't edit) </END>
 
-RUN apk --no-cache add varnish sudo \
- && mkdir -p "$(dirname '"$PID_FILE"')" /var/lib/varnish/`hostname` \
- && touch "$PID_FILE" \
- && chown varnish:varnish "$PID_FILE" /var/lib/varnish/`hostname` $CONFIG_DIR \
- && chmod +x /usr/local/bin/start.sh \
- && chmod u=rx,go= /usr/local/bin/chown2root \
- && echo "varnish ALL=(root) NOPASSWD: /usr/local/bin/chown2root" > /etc/sudoers.d/varnish
+# =========================================================================
+# Final
+# =========================================================================
+ENV VAR_CONFIG_DIR="/etc/varnish" \
+    VAR_JAIL="none" \
+    VAR_VCL_FILE="\$VAR_CONFIG_DIR/default.vcl" \
+    VAR_READ_ONLY_PARAMS="cc_command,vcc_allow_inline_c,vmod_path" \
+    VAR_LISTEN_ADDRESS="" \
+    VAR_LISTEN_PORT="6081" \
+    VAR_MANAGEMENT_ADDRESS="localhost" \
+    VAR_MANAGEMENT_PORT="6082" \
+    VAR_STORAGE="malloc,100M" \
+    VAR_DEFAULT_TTL="120" \
+    VAR_ADDITIONAL_OPTS="" 
 
-ENV JAIL="none" \
-    VCL_FILE="$CONFIG_DIR/default.vcl" \
-    READ_ONLY_PARAMS="cc_command,vcc_allow_inline_c,vmod_path" \
-    LISTEN_ADDRESS="" \
-    LISTEN_PORT="6081" \
-    MANAGEMENT_ADDRESS="localhost" \
-    MANAGEMENT_PORT="6082" \
-    STORAGE="malloc,100M" \
-    DEFAULT_TTL="120" \
-    ADDITIONAL_OPTS="" 
-
-USER varnish
-
-CMD ["start.sh"]
+# Generic template (don't edit) <BEGIN>
+USER starter
+ONBUILD USER root
+# Generic template (don't edit) </END>
