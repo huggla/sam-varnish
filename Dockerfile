@@ -5,9 +5,14 @@
 ARG SaM_VERSION="1.0"
 ARG TAG="20190927"
 ARG IMAGETYPE="application"
+ARG CLONEGITS="https://github.com/mattiasgeniar/varnish-6.0-configuration-templates.git"
 ARG RUNDEPS="varnish dropbear-ssh"
 ARG STARTUPEXACUTABLES="/usr/sbin/varnishd"
 ARG EXECUTABLES="/usr/bin/ssh /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa"
+ARG BUILDCMDS=\
+"   cd varnish-6.0-configuration-templates "\
+'&& cp default.vcl "$DESTDIR/" '\
+'&& gzip "$DESTDIR/default.vcl"'
 # ARGs (can be passed to Build/Final) </END>
 
 # Generic template (don't edit) <BEGIN>
@@ -43,6 +48,7 @@ ENV VAR_CONFIG_DIR="/etc/varnish" \
     VAR_STORAGE="malloc,100M" \
     VAR_DEFAULT_TTL="120" \
     VAR_ADDITIONAL_OPTS="" \
+    VAR_LINUX_USER="varnish" \
     VAR_FINAL_COMMAND="varnishd -j \$VAR_JAIL -P \"\$VAR_PID_FILE\" -f \"\$VAR_VCL_FILE\" -r \$VAR_READ_ONLY_PARAMS -a \$VAR_LISTEN_ADDRESS:\$VAR_LISTEN_PORT -T \$VAR_MANAGEMENT_ADDRESS:\$VAR_MANAGEMENT_PORT -s \$VAR_STORAGE -t \$VAR_DEFAULT_TTL -F \$VAR_ADDITIONAL_OPTS"
 
 # Generic template (don't edit) <BEGIN>
