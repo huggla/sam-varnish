@@ -32,6 +32,7 @@ COPY --from=build /finalfs /
 # Final
 # =========================================================================
 ENV VAR_CONFIG_DIR="/etc/varnish" \
+    VAR_PID_FILE="/var/run/varnishd.pid"
     VAR_JAIL="none" \
     VAR_VCL_FILE="\$VAR_CONFIG_DIR/default.vcl" \
     VAR_READ_ONLY_PARAMS="cc_command,vcc_allow_inline_c,vmod_path" \
@@ -42,7 +43,7 @@ ENV VAR_CONFIG_DIR="/etc/varnish" \
     VAR_STORAGE="malloc,100M" \
     VAR_DEFAULT_TTL="120" \
     VAR_ADDITIONAL_OPTS="" \
-    VAR_FINAL_COMMAND="varnishd -j $JAIL -P \"$PID_FILE\" -f \"$VCL_FILE\" -r $READ_ONLY_PARAMS -a $LISTEN_ADDRESS:$LISTEN_PORT -T $MANAGEMENT_ADDRESS:$MANAGEMENT_PORT -s $STORAGE -t $DEFAULT_TTL -F $ADDITIONAL_OPTS"
+    VAR_FINAL_COMMAND="varnishd -j \$VAR_JAIL -P \"\$VAR_PID_FILE\" -f \"\$VAR_VCL_FILE\" -r \$VAR_READ_ONLY_PARAMS -a \$VAR_LISTEN_ADDRESS:\$VAR_LISTEN_PORT -T \$VAR_MANAGEMENT_ADDRESS:\$VAR_MANAGEMENT_PORT -s \$VAR_STORAGE -t \$VAR_DEFAULT_TTL -F \$VAR_ADDITIONAL_OPTS"
 
 # Generic template (don't edit) <BEGIN>
 USER starter
