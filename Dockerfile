@@ -37,7 +37,7 @@ COPY --from=build /finalfs /
 # Final
 # =========================================================================
 ENV VAR_CONFIG_DIR="/etc/varnish" \
-    VAR_PID_FILE="/var/run/varnishd.pid"
+    VAR_PID_FILE="/var/run/varnishd.pid" \
     VAR_JAIL="none" \
     VAR_VCL_FILE="\$VAR_CONFIG_DIR/default.vcl" \
     VAR_READ_ONLY_PARAMS="cc_command,vcc_allow_inline_c,vmod_path" \
