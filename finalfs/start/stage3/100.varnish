@@ -5,61 +5,60 @@
 # VAR_*
 # All functions in /start/functions
 
-if [ ! -e "$VCL_FILE" ]
+if [ "$isFirstRun" == "true" ]
 then
-   mkdir -p "$(dirname "$VCL_FILE")"
-   if [ -n "$BACKENDS" ]
+   if [ ! -s "$VAR_VCL_FILE" ]
    then
-      echo "vcl 4.0;" >> "$VCL_FILE"
-      echo >> "$VCL_FILE"
-      IFS="#"
-      for import in $IMPORTS
-      do
-         echo "import $import;" >> "$VCL_FILE"
-      done
-      echo >> "$VCL_FILE"
-      for backend in $BACKENDS
-      do
-         echo "backend $backend {" >> "$VCL_FILE"
-         eval "backend_config=\$$backend"
-         for row in $backend_config
-         do
-            echo "   $row;" >> "$VCL_FILE"
-         done
-         echo "}" >> "$VCL_FILE"
-         echo >> "$VCL_FILE"
-      done
-      echo >> "$VCL_FILE"
-      for acl in $ACLS
-      do
-         echo "acl $acl {" >> "$VCL_FILE"
-         eval "acl_config=\$$acl"
-         for row in $acl_config
-         do
-            echo "   $row;" >> "$VCL_FILE"
-         done
-         echo "}" >> "$VCL_FILE"
-         echo >> "$VCL_FILE"
-      done
-      subs="VCL_INIT#VCL_RECV#VCL_PIPE#VCL_PASS#VCL_HASH#VCL_HIT#VCL_MISS#VCL_BACKEND_RESPONSE#VCL_BACKEND_ERROR#VCL_DELIVER#VCL_PURGE#VCL_SYNTH#VCL_FINI"
-      for sub in $subs
-      do
-         sub_lc="$(echo $sub | tr '[:upper:]' '[:lower:]')"
-         echo "sub $sub_lc {" >> "$VCL_FILE"
-         eval "sub_rows=\$$sub"
-         for row in $sub_rows
-         do
-            echo "   $row" >> "$VCL_FILE"
-         done
-         echo "}" >> "$VCL_FILE"
-         echo >> "$VCL_FILE"
-      done
-   else
-      cp $CONFIG_DIR/default.vcl.template "$VCL_FILE"
+      if [ -n "$VAR_BACKENDS" ]
+      then
+         {
+            echo "vcl 4.1;"
+            echo
+            IFS="#"
+            for import in $VAR_IMPORTS
+            do
+               echo "import $import;"
+            done
+            echo
+            for backend in $VAR_BACKENDS
+            do
+               echo "backend $backend {"
+               eval "backend_config=\$$backend"
+               for row in $backend_config
+               do
+                  echo "   $row;"
+               done
+               echo "}"
+               echo
+            done
+            echo
+            for acl in $VAR_ACLS
+            do
+               echo "acl $acl {"
+               eval "acl_config=\$$acl"
+               for row in $acl_config
+               do
+                  echo "   $row;"
+               done
+               echo "}"
+               echo
+            done
+            subs="VCL_INIT#VCL_RECV#VCL_PIPE#VCL_PASS#VCL_HASH#VCL_HIT#VCL_MISS#VCL_BACKEND_RESPONSE#VCL_BACKEND_ERROR#VCL_DELIVER#VCL_PURGE#VCL_SYNTH#VCL_FINI"
+            for sub in $subs
+            do
+               sub_lc="$(echo $sub | tr '[:upper:]' '[:lower:]')"
+               echo "sub $sub_lc {"
+               eval "sub_rows=\$VAR_$sub"
+               for row in $sub_rows
+               do
+                  echo "   $row"
+               done
+               echo "}"
+               echo
+            done
+         } > "$VAR_VCL_FILE"
+      else
+         zcat default.vcl.gz > "$VAR_VCL_FILE"
+      fi
    fi
 fi
-sudo chown2root -R "$CONFIG_DIR"
-sudo chown2root -R "$(dirname "$VCL_FILE")"
-start="varnishd -j $JAIL -P \"$PID_FILE\" -f \"$VCL_FILE\" -r $READ_ONLY_PARAMS -a $LISTEN_ADDRESS:$LISTEN_PORT -T $MANAGEMENT_ADDRESS:$MANAGEMENT_PORT -s $STORAGE -t $DEFAULT_TTL -F $ADDITIONAL_OPTS"
-eval $start
-exit 0
