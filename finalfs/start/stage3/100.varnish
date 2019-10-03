@@ -1,5 +1,9 @@
-#!/bin/sh
-set -e
+# Set in stage2:
+# ---------------------------------------------------------
+# set -ef +am
+# isFirstRun
+# VAR_*
+# All functions in /start/functions
 
 if [ ! -e "$VCL_FILE" ]
 then
