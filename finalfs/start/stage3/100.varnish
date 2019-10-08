@@ -23,7 +23,7 @@ then
             for backend in $VAR_BACKENDS
             do
                echo "backend $backend {"
-               eval "backend_config=\$$backend"
+               eval "backend_config=\$VAR_BACKEND_$backend"
                for row in $backend_config
                do
                   echo "   $row;"
