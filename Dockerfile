@@ -9,7 +9,7 @@ ARG SaM_VERSION="dev"
 ARG IMAGETYPE="application"
 ARG CLONEGITS="https://github.com/mattiasgeniar/varnish-6.0-configuration-templates.git"
 ARG RUNDEPS="varnish dropbear-ssh"
-ARG STARTUPEXACUTABLES="/usr/sbin/varnishd"
+ARG STARTUPEXECUTABLES="/usr/sbin/varnishd"
 ARG EXECUTABLES="/usr/bin/ssh /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa"
 ARG BUILDCMDS=\
 "   cd varnish-6.0-configuration-templates "\
