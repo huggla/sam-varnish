@@ -5,7 +5,7 @@
 # Init
 # =========================================================================
 # ARGs (can be passed to Build/Final) <BEGIN>
-ARG SaM_VERSION="2.0.2"
+ARG SaM_VERSION="dev"
 ARG IMAGETYPE="application"
 ARG CLONEGITS="https://github.com/mattiasgeniar/varnish-6.0-configuration-templates.git"
 ARG RUNDEPS="varnish dropbear-ssh"
@@ -40,7 +40,7 @@ COPY --from=build /finalfs /
 # Final
 # =========================================================================
 ENV VAR_CONFIG_DIR="/etc/varnish" \
-    VAR_PID_FILE="/var/run/varnishd.pid" \
+    VAR_PID_FILE="/run/varnishd.pid" \
     VAR_JAIL="none" \
     VAR_VCL_FILE="\$VAR_CONFIG_DIR/default.vcl" \
     VAR_READ_ONLY_PARAMS="cc_command,vcc_allow_inline_c,vmod_path" \
