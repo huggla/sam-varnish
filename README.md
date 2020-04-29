@@ -17,9 +17,9 @@ A Secure and Minimal docker-image with Varnish. Listens by default on port 6081.
 ### Optional runtime variables
 * VAR_IMPORTS: #-separated list of imports.
 * VAR_BACKENDS: #-separated list of backend names.
-* VAR_\<backend\>: #-separated list of backend definition rows for \<backend\>.
+* VAR_&lt;backend&gt;: #-separated list of backend definition rows for &lt;backend&gt;.
 * VAR_ACLS: #-separated list of acl names.
-* VAR_\<acl\>: #-separated list of acl definition rows for \<acl\>.
+* VAR_&lt;acl&gt;: #-separated list of acl definition rows for &lt;acl&gt;.
 * VAR_VCL_INIT, VAR_VCL_RECV, VAR_VCL_PIPE, VAR_VCL_PASS, VAR_VCL_HASH, VAR_VCL_HIT, VAR_VCL_MISS, VAR_VCL_BACKEND_RESPONSE, VAR_VCL_BACKEND_ERROR, VAR_VCL_DELIVER, VAR_VCL_PURGE, VAR_VCL_SYNTH, VAR_VCL_FINI: #-separated list of sub definition rows. F ex VAR_VCL_RECV='set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");# return (pass);'.
 
 ## Capabilities
