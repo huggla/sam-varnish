@@ -9,8 +9,9 @@ ARG SaM_VERSION="dev"
 ARG IMAGETYPE="application"
 ARG CLONEGITS="https://github.com/mattiasgeniar/varnish-6.0-configuration-templates.git"
 ARG RUNDEPS="varnish dropbear-ssh"
-ARG STARTUPEXECUTABLES="/usr/sbin/varnishd"
-ARG EXECUTABLES="/usr/bin/ssh /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa"
+ARG MAKEDIRS="/var/lib/varnish"
+ARG GID0WRITABLES="/var/lib/varnish"
+ARG EXECUTABLES="/usr/sbin/varnishd /usr/bin/ssh /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa"
 ARG BUILDCMDS=\
 "   cd varnish-6.0-configuration-templates "\
 '&& cp default.vcl "$DESTDIR/" '\
