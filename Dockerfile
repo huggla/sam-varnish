@@ -5,7 +5,7 @@
 # Init
 # =========================================================================
 # ARGs (can be passed to Build/Final) <BEGIN>
-ARG SaM_VERSION="dev"
+ARG SaM_VERSION="2.0.2"
 ARG IMAGETYPE="application"
 ARG CLONEGITS="https://github.com/mattiasgeniar/varnish-6.0-configuration-templates.git"
 ARG RUNDEPS="varnish dropbear-ssh"
