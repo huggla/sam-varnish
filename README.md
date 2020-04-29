@@ -3,24 +3,24 @@ A Secure and Minimal docker-image with Varnish. Listens by default on port 6081.
 
 ## Environment variables
 ### pre-set variables (can be set at runtime)
-* JAIL (none)
-* VCL_FILE (/etc/varnish/default.vcl)
-* READ_ONLY_PARAMS (cc_command,vcc_allow_inline_c,vmod_path)
-* LISTEN_ADDRESS ("")
-* LISTEN_PORT (6081)
-* MANAGEMENT_ADDRESS (localhost)
-* MANAGEMENT_PORT (6082)
-* STORAGE (malloc,100M)
-* DEFAULT_TTL (120)
-* ADDITIONAL_OPTS ("") f ex. "-p tcp_fastopen=on -S /etc/varnish/secret"
+* VAR_JAIL (none)
+* VAR_VCL_FILE (/etc/varnish/default.vcl)
+* VAR_READ_ONLY_PARAMS (cc_command,vcc_allow_inline_c,vmod_path)
+* VAR_LISTEN_ADDRESS ("")
+* VAR_LISTEN_PORT (6081)
+* VAR_MANAGEMENT_ADDRESS (localhost)
+* VAR_MANAGEMENT_PORT (6082)
+* VAR_STORAGE (malloc,100M)
+* VAR_DEFAULT_TTL (120)
+* VAR_ADDITIONAL_OPTS ("") f ex. "-p tcp_fastopen=on -S /etc/varnish/secret"
 
 ### Optional runtime variables
-* IMPORTS: #-separated list of imports.
-* BACKENDS: #-separated list of backend names.
-* \<backend\>: #-separated list of backend definition rows for \<backend\>.
-* ACLS: #-separated list of acl names.
-* \<acl\>: #-separated list of acl definition rows for \<acl\>.
-* VCL_INIT, VCL_RECV, VCL_PIPE, VCL_PASS, VCL_HASH, VCL_HIT, VCL_MISS, VCL_BACKEND_RESPONSE, VCL_BACKEND_ERROR, VCL_DELIVER, VCL_PURGE, VCL_SYNTH, VCL_FINI: #-separated list of sub definition rows. F ex VCL_RECV='set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");# return (pass);'.
+* VAR_IMPORTS: #-separated list of imports.
+* VAR_BACKENDS: #-separated list of backend names.
+* VAR_\<backend\>: #-separated list of backend definition rows for \<backend\>.
+* VAR_ACLS: #-separated list of acl names.
+* VAR_\<acl\>: #-separated list of acl definition rows for \<acl\>.
+* VAR_VCL_INIT, VAR_VCL_RECV, VAR_VCL_PIPE, VAR_VCL_PASS, VAR_VCL_HASH, VAR_VCL_HIT, VAR_VCL_MISS, VAR_VCL_BACKEND_RESPONSE, VAR_VCL_BACKEND_ERROR, VAR_VCL_DELIVER, VAR_VCL_PURGE, VAR_VCL_SYNTH, VAR_VCL_FINI: #-separated list of sub definition rows. F ex VAR_VCL_RECV='set req.http.Host = regsub(req.http.Host, ":[0-9]+", "");# return (pass);'.
 
 ## Capabilities
 ### Can drop
