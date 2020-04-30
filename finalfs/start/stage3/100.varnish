@@ -15,7 +15,8 @@ then
          {
             echo "vcl 4.1;"
             echo
-            IFS="#"
+            IFS_bak=$IFS
+            IFS=$(echo -en '#')
             for import in $VAR_IMPORTS
             do
                echo "import $import;"
@@ -57,6 +58,7 @@ then
                echo "}"
                echo
             done
+            IFS=$IFS_bak
          } > "$VAR_VCL_FILE"
       else
          zcat default.vcl.gz > "$VAR_VCL_FILE"
