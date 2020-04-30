@@ -8,7 +8,6 @@
 if [ "$isFirstRun" == "true" ]
 then
    VAR_VCL_FILE="$(eval "echo \"$VAR_VCL_FILE\"")"
-   mkdir -p "$(dirname "$VAR_VCL_FILE")"
    if [ ! -s "$VAR_VCL_FILE" ]
    then
       if [ -n "$VAR_BACKENDS" ]
