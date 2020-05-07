@@ -16,7 +16,7 @@ then
             echo "vcl 4.1;"
             echo
             IFS_bak=$IFS
-            IFS=$(echo -en '#')
+            IFS=$(echo -en ';')
             for import in $VAR_IMPORTS
             do
                echo "import $import;"
@@ -25,7 +25,7 @@ then
             for backend in $VAR_BACKENDS
             do
                echo "backend $backend {"
-               eval "backend_config=\$VAR_BACKEND_$backend"
+               eval "backend_config=\$VAR_$backend"
                for row in $backend_config
                do
                   echo "   $row;"
@@ -45,7 +45,7 @@ then
                echo "}"
                echo
             done
-            subs="VCL_INIT#VCL_RECV#VCL_PIPE#VCL_PASS#VCL_HASH#VCL_HIT#VCL_MISS#VCL_BACKEND_RESPONSE#VCL_BACKEND_ERROR#VCL_DELIVER#VCL_PURGE#VCL_SYNTH#VCL_FINI"
+            subs='VCL_INIT;VCL_RECV;VCL_PIPE;VCL_PASS;VCL_HASH;VCL_HIT;VCL_MISS;VCL_BACKEND_RESPONSE;VCL_BACKEND_ERROR;VCL_DELIVER;VCL_PURGE;VCL_SYNTH;VCL_FINI'
             for sub in $subs
             do
                sub_lc="$(echo $sub | tr '[:upper:]' '[:lower:]')"
