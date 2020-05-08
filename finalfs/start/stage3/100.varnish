@@ -70,4 +70,7 @@ then
       echo "$VAR_AUTHORIZED_KEYS" > "$VAR_CONFIG_DIR/.ssh/authorized_keys"
       echo >> "$VAR_CONFIG_DIR/.ssh/authorized_keys"
    fi
+   find /bin -type f -exec chmod go= '{}' \;
+   chmod g+rX /bin
+   ln -sf /usr/local/bin/dash /bin/sh
 fi
