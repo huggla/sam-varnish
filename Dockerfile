@@ -7,11 +7,14 @@
 # ARGs (can be passed to Build/Final) <BEGIN>
 ARG SaM_VERSION="dev"
 ARG IMAGETYPE="application"
+ARG CONTENTIMAGE1="huggla/sam-content:coreutils-$COREUTILS_VERSION"
+ARG CONTENTSOURCE1="/content-app/usr/bin/rm"
+ARG CONTENTDESTINATION1="/finalfs/bin/"
 ARG CLONEGITS="https://github.com/mattiasgeniar/varnish-6.0-configuration-templates.git"
 ARG RUNDEPS="varnish dropbear-ssh"
 ARG MAKEDIRS="/var/lib/varnish"
 ARG GID0WRITABLES="/var/lib/varnish"
-ARG EXECUTABLES="/usr/sbin/varnishd /usr/bin/ssh /usr/bin/dbclient /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa /usr/bin/gcc"
+ARG EXECUTABLES="/usr/sbin/varnishd /usr/bin/ssh /usr/bin/dbclient /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa /usr/bin/gcc /bin/rm"
 ARG BUILDCMDS=\
 "   cd varnish-6.0-configuration-templates "\
 '&& cp default.vcl "$DESTDIR/" '\
