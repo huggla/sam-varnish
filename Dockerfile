@@ -7,6 +7,7 @@
 # ARGs (can be passed to Build/Final) <BEGIN>
 ARG SaM_VERSION="dev"
 ARG IMAGETYPE="application"
+ARG COREUTILS_VERSION="8.32"
 ARG CONTENTIMAGE1="huggla/sam-content:coreutils-$COREUTILS_VERSION"
 ARG CONTENTSOURCE1="/content-app/usr/bin/rm"
 ARG CONTENTDESTINATION1="/finalfs/bin/"
