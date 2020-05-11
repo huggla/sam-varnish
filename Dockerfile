@@ -16,6 +16,7 @@ ARG BUILDCMDS=\
 "   cd varnish-6.0-configuration-templates "\
 '&& cp default.vcl "$DESTDIR/" '\
 '&& gzip "$DESTDIR/default.vcl"'
+ARG FINALCMDS="ln -s /usr/lib /usr/libexec /usr/local/"
 # ARGs (can be passed to Build/Final) </END>
 
 # Generic template (don't edit) <BEGIN>
