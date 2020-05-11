@@ -53,7 +53,7 @@ then
                eval "sub_rows=\$VAR_$sub"
                for row in $sub_rows
                do
-                  echo "   $row"
+                  echo "   $row;"
                done
                echo "}"
                echo
