@@ -5,7 +5,7 @@
 # Init
 # =========================================================================
 # ARGs (can be passed to Build/Final) <BEGIN>
-ARG SaM_VERSION="dev"
+ARG SaM_VERSION="2.0.4"
 ARG IMAGETYPE="application"
 ARG COREUTILS_VERSION="8.32"
 ARG CONTENTIMAGE1="huggla/sam-content:coreutils-$COREUTILS_VERSION"
