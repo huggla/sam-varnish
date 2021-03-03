@@ -14,8 +14,8 @@ ARG CONTENTDESTINATION1="/finalfs/bin/"
 ARG CLONEGITS="https://github.com/mattiasgeniar/varnish-6.0-configuration-templates.git"
 ARG RUNDEPS="varnish dropbear-ssh"
 ARG MAKEDIRS="/var/lib/varnish"
-ARG STARTUPEXECUTABLES="/usr/sbin/varnishd /usr/bin/gcc /bin/rm"
-ARG EXECUTABLES="/usr/bin/ssh /usr/bin/dbclient /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa"
+ARG STARTUPEXECUTABLES="/usr/sbin/varnishd /usr/bin/gcc"
+ARG EXECUTABLES="/bin/rm /usr/bin/ssh /usr/bin/dbclient /usr/bin/varnishhist /usr/bin/varnishtest /usr/bin/varnishtop /usr/bin/varnishlog /usr/bin/varnishadm /usr/bin/varnishstat /usr/bin/varnishncsa"
 ARG BUILDCMDS=\
 "   cd varnish-6.0-configuration-templates "\
 '&& cp default.vcl "$DESTDIR/" '\
