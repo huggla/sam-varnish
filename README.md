@@ -24,4 +24,4 @@ A Secure and Minimal docker-image with Varnish. Listens by default on port 6081.
 
 ## Capabilities
 ### Can drop
-* All but CHOWN, SETGID and SETUID.
+* All but CHOWN, SETPCAP, SETGID and SETUID.
