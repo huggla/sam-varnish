@@ -5,12 +5,12 @@
 # Init
 # =========================================================================
 # ARGs (can be passed to Build/Final) <BEGIN>
-ARG SaM_VERSION="2.0.4"
+ARG SaM_VERSION="2.0.6-3.16"
 ARG IMAGETYPE="application"
-ARG COREUTILS_VERSION="8.32"
+ARG COREUTILS_VERSION="9.1"
 ARG CONTENTIMAGE1="huggla/sam-content:coreutils-$COREUTILS_VERSION"
 ARG CONTENTSOURCE1="/content-app/usr/bin/rm"
-ARG CONTENTDESTINATION1="/finalfs/bin/"
+ARG CONTENTDESTINATION1="/tmp/finalfs/bin/"
 ARG CLONEGITS="https://github.com/mattiasgeniar/varnish-6.0-configuration-templates.git"
 ARG RUNDEPS="varnish dropbear-ssh"
 ARG MAKEDIRS="/var/lib/varnish"
@@ -31,7 +31,8 @@ FROM ${CONTENTIMAGE2:-scratch} as content2
 FROM ${CONTENTIMAGE3:-scratch} as content3
 FROM ${CONTENTIMAGE4:-scratch} as content4
 FROM ${CONTENTIMAGE5:-scratch} as content5
-FROM ${INITIMAGE:-${BASEIMAGE:-huggla/secure_and_minimal:$SaM_VERSION-base}} as init
+FROM ${BASEIMAGE:-huggla/secure_and_minimal:$SaM_VERSION-base} as base
+FROM ${INITIMAGE:-scratch} as init
 # Generic template (don't edit) </END>
 
 # =========================================================================
