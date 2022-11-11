@@ -16,7 +16,7 @@ A Secure and Minimal docker-image with Varnish. Listens by default on port 6081.
 
 ### Optional runtime variables
 * VAR_IMPORTS: #-separated list of imports.
-* VAR_BACKENDS: ;-separated list of backend names.
+* VAR_BACKENDS: semicolon-separated (;) list of backend names.
 * VAR_&lt;backend&gt;: #-separated list of backend definition rows for &lt;backend&gt;.
 * VAR_ACLS: #-separated list of acl names.
 * VAR_&lt;acl&gt;: #-separated list of acl definition rows for &lt;acl&gt;.
